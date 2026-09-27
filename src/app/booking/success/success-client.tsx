@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   durationLabel,
   endsAt,
@@ -35,6 +36,9 @@ import {
 } from "@/components/icons";
 
 export function SuccessClient({ bookingId }: { bookingId?: string }) {
+  const searchParams = useSearchParams();
+  const queryBookingId = searchParams.get("id") ?? undefined;
+  const resolvedBookingId = bookingId ?? queryBookingId;
   const bookings = useLumera((s) => s.bookings);
   const hydrated = useLumera((s) => s.hydrated);
   const [copied, setCopied] = useState(false);
@@ -42,7 +46,7 @@ export function SuccessClient({ bookingId }: { bookingId?: string }) {
   const booking = useMemo(() => {
     if (!bookings.length) return undefined;
     return (
-      bookings.find((b) => b.id === bookingId) ??
+      bookings.find((b) => b.id === resolvedBookingId) ??
       bookings.find((b) => b.userId === "me")
     );
   }, [bookings, bookingId]);
