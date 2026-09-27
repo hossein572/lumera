@@ -66,7 +66,7 @@ export const categoryArt: Record<
     frag: asset("/img/frag-massage.jpg"),
     work: [
       asset("/img/work-massage-1.jpg"),
-      asset("/img/frag-massage.jpg"),
+      asset("/img/work-massage-2.jpg"),
       asset("/img/work-massage-3.jpg"),
     ],
   },
