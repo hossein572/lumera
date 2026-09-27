@@ -1,8 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ExploreView } from "@/components/explore-view";
-import { categories } from "@/data/categories";
-import type { SortKey } from "@/data";
 import { Skeleton } from "@/components/ui/Skeleton";
 
 export const metadata: Metadata = {
@@ -11,53 +9,7 @@ export const metadata: Metadata = {
     "جستجو و فیلتر متخصص‌های زیبایی و مراقبت بر اساس دسته، شهر، تاریخ، امتیاز، قیمت و وقت خالی.",
 };
 
-const ISODATE = /^\d{4}-\d{2}-\d{2}$/;
-const SORTS: SortKey[] = [
-  "recommended",
-  "rating",
-  "price-asc",
-  "price-desc",
-  "nearest",
-  "earliest",
-];
-
-function parse(sp: URLSearchParams | undefined) {
-  const catParam = sp?.getAll("cat").filter(Boolean) ?? [];
-  const cats = catParam.filter((c) => categories.some((x) => x.id === c));
-  const day = sp?.get("day");
-  const rating = Number(sp?.get("rating") ?? "0");
-  const max = Number(sp?.get("max") ?? "0");
-  const sort = (sp?.get("sort") ?? "recommended") as SortKey;
-  const demoParam = sp?.get("demo");
-  const demo: "off" | "empty" | "error" =
-    demoParam === "empty" || demoParam === "error" ? demoParam : "off";
-  return {
-    initial: {
-      q: sp?.get("q") ?? "",
-      cats,
-      city: sp?.get("city") ?? "همه",
-      day: day && ISODATE.test(day) ? day : null,
-      minRating: Number.isFinite(rating) ? rating : 0,
-      maxPrice: Number.isFinite(max) && max > 0 ? max : 8000000,
-      verifiedOnly: sp?.get("verified") === "1",
-      freeOnly: sp?.get("free") === "1",
-      demo,
-      sort: SORTS.includes(sort) ? sort : "recommended",
-    },
-  };
-}
-
-export default async function ExplorePage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const raw = await searchParams;
-  const { initial } = parse(
-    new URLSearchParams(
-      new URLSearchParams(raw as Record<string, string>).toString(),
-    ),
-  );
+export default function ExplorePage() {
   return (
     <Suspense
       fallback={
@@ -72,7 +24,7 @@ export default async function ExplorePage({
         </div>
       }
     >
-      <ExploreView initial={initial} />
+      <ExploreView initial={{}} />
     </Suspense>
   );
 }
