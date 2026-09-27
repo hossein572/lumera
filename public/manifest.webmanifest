@@ -1,0 +1,14 @@
+{
+  "name": "لومرا | انتخاب و رزرو متخصص زیبایی",
+  "short_name": "لومرا",
+  "description": "پلتفرم انتخاب و رزرو متخصص‌های پوست، مو، ناخن، میکاپ، مراقبت و ماساژ.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0D0B10",
+  "theme_color": "#0D0B10",
+  "lang": "fa",
+  "dir": "rtl",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

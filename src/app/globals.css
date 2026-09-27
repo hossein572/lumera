@@ -1,0 +1,337 @@
+/* LUMERA — Design System
+   typography: Vazirmatn (self-hosted) | direction: RTL | theme: dark editorial
+   ------------------------------------------------------------------ */
+
+@import "@fontsource/vazirmatn/300.css";
+@import "@fontsource/vazirmatn/400.css";
+@import "@fontsource/vazirmatn/500.css";
+@import "@fontsource/vazirmatn/600.css";
+@import "@fontsource/vazirmatn/700.css";
+@import "@fontsource/vazirmatn/800.css";
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans:
+    "Vazirmatn", ui-sans-serif, "Segoe UI", Tahoma, "Iranian Sans", sans-serif;
+
+  /* ---- surfaces ---- */
+  --color-bg: #0d0b10;
+  --color-bg-2: #131017;
+  --color-surface: #17131d;
+  --color-surface-2: #21182a;
+  --color-surface-3: #2b2036;
+
+  /* ---- text ---- */
+  --color-ink: #f7f3f8;
+  --color-muted: #aaa1b2;
+  --color-faint: #766d80;
+
+  /* ---- lines ---- */
+  --color-line: #2a2133;
+  --color-line-soft: #1f1827;
+
+  /* ---- accents (used sparingly) ---- */
+  --color-accent: #c96cff;
+  --color-accent-deep: #a13ff2;
+  --color-mint: #6ef2d0;
+  --color-rose: #ff7a9e;
+  --color-amber: #f2c46e;
+  --color-danger: #ff6b74;
+  --color-ink-950: #0d0b10;
+
+  /* ---- radii: small and confident, no oversized pills ---- */
+  --radius-xs: 6px;
+  --radius-sm: 9px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  --shadow-none: 0 0 0 0;
+  --shadow-soft: 0 24px 60px -34px rgba(0, 0, 0, 0.75);
+  --shadow-lift: 0 18px 40px -28px rgba(0, 0, 0, 0.7);
+
+  --animate-rise: rise 0.42s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade: fade 0.3s ease both;
+  --animate-sheet: sheet 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-pop: pop 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes sheet {
+  from {
+    transform: translate3d(0, 2.5rem, 0);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes pop {
+  from {
+    transform: scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes shimmer {
+  from {
+    background-position: 180% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    scrollbar-color: var(--color-surface-3) transparent;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss02";
+    line-height: 1.85;
+    letter-spacing: 0;
+    overflow-wrap: break-word;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+
+  /* یک نور بسیار محدود، فقط در بالای صفحه — بدون glow پخش‌شده */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 420px;
+    background: radial-gradient(
+      120% 100% at 78% -20%,
+      rgba(201, 108, 255, 0.09),
+      rgba(110, 242, 208, 0.03) 42%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: -0.012em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: rgba(201, 108, 255, 0.28);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-faint);
+  }
+
+  [type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-surface-2);
+    border-radius: 99px;
+    border: 3px solid var(--color-bg);
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer components {
+  .label {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    font-weight: 600;
+    color: var(--color-faint);
+    letter-spacing: 0.02em;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-muted);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.85;
+  }
+
+  /* المان‌هایی که با اسکرول نمایان می‌شوند — فقط وقتی JS فعال است */
+  html.js .reveal {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition:
+      opacity 0.5s ease,
+      transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: opacity, transform;
+  }
+  html.js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* نوارهای افقی کمکی (چیپ‌ها، تاریخ‌ها) */
+input[type="range"].lumera-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 26px;
+  background: transparent;
+}
+input[type="range"].lumera-range::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(
+    to left,
+    var(--color-accent) 0 var(--fill, 50%),
+    #2a2133 var(--fill, 50%) 100%
+  );
+}
+input[type="range"].lumera-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px;
+  height: 17px;
+  width: 17px;
+  border-radius: 99px;
+  background: var(--color-ink);
+  border: 4px solid var(--color-accent);
+  cursor: grab;
+  transition: transform 0.12s ease;
+}
+input[type="range"].lumera-range:active::-webkit-slider-thumb {
+  transform: scale(1.06);
+}
+input[type="range"].lumera-range::-moz-range-track {
+  height: 3px;
+  border-radius: 99px;
+  background: #2a2133;
+}
+input[type="range"].lumera-range::-moz-range-progress {
+  height: 3px;
+  border-radius: 99px;
+  background: var(--color-accent);
+}
+input[type="range"].lumera-range::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 99px;
+  background: var(--color-ink);
+  border: 4px solid var(--color-accent);
+}
+
+@utility snap-x-row {
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* قاب تصویر هیرو در موبایل: بلندای کنترل‌شده تا تیتر و جستجو در دید بمانند */
+@utility hero-frame {
+  @media (width < 40rem) {
+    aspect-ratio: 1 / 1;
+  }
+  @media (width < 40rem) and (height >= 880px) {
+    aspect-ratio: 5 / 6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
